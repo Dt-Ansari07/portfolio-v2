@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/*
+  Design system: "Ledger"
+  A visual language borrowed from the subject's own world -- spreadsheets,
+  KPI rows, and monthly MIS reports -- rendered as a clean, premium portfolio
+  rather than a literal spreadsheet pastiche. Hairline cell borders, cell-
+  reference eyebrows (A1, B2...), tabular figures, and a single amber
+  "flagged cell" accent stand in for the generic dark+neon or cream+terracotta
+  defaults.
+*/
+
+:root {
+  /* Paper (light) surface family -- cool grey-green paper, not cream */
+  --paper-0: #f4f5f0;
+  --paper-1: #ffffff;
+  --paper-2: #e9ebe3;
+  --ink-strong: #171c1a;
+  --ink: #262f2c;
+  --ink-muted: #5b665f;
+  --line: #d7dbcf;
+
+  /* Accent system */
+  --gold: #c8952e; /* flagged-cell amber -- primary accent */
+  --gold-soft: #f4e3bf;
+  --teal: #1f5c58; /* data/link accent */
+  --teal-soft: #d9ece9;
+  --red-flag: #b3432f; /* used sparingly, "critical" markers */
+
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0 1px 2px rgba(23, 28, 26, 0.06), 0 8px 24px rgba(23, 28, 26, 0.06);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper-0: #0b0f0e;
+  --paper-1: #101513;
+  --paper-2: #1a201d;
+  --ink-strong: #f4f5f0;
+  --ink: #dfe3dc;
+  --ink-muted: #8b968e;
+  --line: #263029;
+
+  --gold: #e0aa4a;
+  --gold-soft: #3a2f15;
+  --teal: #6fc9c1;
+  --teal-soft: #123330;
+  --red-flag: #e2705a;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper-0: var(--paper-0);
+  --color-paper-1: var(--paper-1);
+  --color-paper-2: var(--paper-2);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-red-flag: var(--red-flag);
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper-0);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--ink-strong);
+}
+
+/* Visible, high-contrast focus ring everywhere -- never suppressed */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.cell-border {
+  border: 1px solid var(--line);
+}
+
+.fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Skip link -- visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ink-strong);
+  color: var(--paper-0);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Respect reduced-motion preference across the whole app */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ledger grid backdrop used behind hero + section dividers */
+.ledger-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}

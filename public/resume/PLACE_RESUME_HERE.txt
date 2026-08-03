@@ -1,0 +1,6 @@
+Put your real resume PDF in this folder as:
+  Zulfiqar_Ansari_Resume.pdf
+
+It must match the filename referenced in src/content/profile.ts
+(profile.links.resumePdf) or the header/mobile-menu "Resume" download
+links will 404.
